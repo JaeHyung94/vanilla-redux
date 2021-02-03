@@ -1,30 +1,20 @@
-import { createStore } from "redux";
+const form = document.getElementById("jsForm");
+const input = document.getElementById("jsInput");
+const ul = document.getElementById("jsUl");
 
-const add = document.getElementById("add");
-const minus = document.getElementById("minus");
-const number = document.querySelector("span");
+let ToDoList = [];
 
-number.innerText = 0;
-
-const ADD = "Add";
-const MINUS = "Minus";
-
-const countModifier = (count = 0, action) => {
-  switch (action.type) {
-    case ADD:
-      return count + 1;
-    case MINUS:
-      return count - 1;
-    default:
-      return count;
-  }
+const createToDo = toDo => {
+  const list = document.createElement("li");
+  list.innerText = toDo;
+  ul.appendChild(list);
 };
-const countStore = createStore(countModifier);
 
-const onChange = () => {
-  number.innerText = countStore.getState();
+const handleSubmit = event => {
+  event.preventDefault();
+  const toDo = input.value;
+  input.value = "";
+  createToDo(toDo);
 };
-countStore.subscribe(onChange);
 
-add.addEventListener("click", () => countStore.dispatch({ type: ADD }));
-minus.addEventListener("click", () => countStore.dispatch({ type: MINUS }));
+form.addEventListener("submit", handleSubmit);
