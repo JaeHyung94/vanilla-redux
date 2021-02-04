@@ -5,14 +5,12 @@ import ToDo from "../components/ToDo.js";
 
 const Home = ({ toDos, addToDo }) => {
   const [text, setText] = useState();
-  const [id, setId] = useState();
   const onChange = event => {
-    setId(Date.now());
     setText(event.target.value);
   };
   const onSubmit = event => {
     event.preventDefault();
-    addToDo(text, id);
+    addToDo(text);
     setText("");
   };
 
